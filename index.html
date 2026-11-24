@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#17251f">
+    <meta name="description" content="ร่วมสัมผัสค่ำคืนลอยกระทงในเมืองเก่า ผ่านฉากงานวัดและตลาดไทยสามช่วงเวลา">
+    <title>นทีราตรี — คืนวันเพ็ญริมสายน้ำ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="festival" id="festival">
+      <canvas id="world" aria-label="ฉากเทศกาลลอยกระทงสามมิติ"></canvas>
+      <div class="scene-vignette" aria-hidden="true"></div>
+
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="นทีราตรี หน้าหลัก">
+          <span class="brand-mark" aria-hidden="true">❋</span>
+          <span><strong>นทีราตรี</strong><small>คืนวันเพ็ญริมสายน้ำ</small></span>
+        </a>
+        <div class="topbar-note"><span class="live-dot"></span><span id="scene-caption">เช้าบุญ — ตลาดเริ่มตื่น</span></div>
+        <button class="sound-button" id="sound-toggle" type="button" aria-pressed="false" title="เปิดหรือปิดเสียงบรรยากาศ">
+          <span aria-hidden="true">♫</span><span class="sound-label">เปิดเสียง</span>
+        </button>
+      </header>
+
+      <section class="scene-heading" aria-live="polite">
+        <p class="eyebrow"><span id="date-label">วันเพ็ญ เดือนสิบสอง</span><span class="eyebrow-line"></span>เมืองเก่าริมน้ำ</p>
+        <h1 id="scene-title">เช้าบุญ</h1>
+        <p id="scene-description">แสงแรกอาบองค์พระธาตุ ผู้คนเตรียมของใส่บาตรในตลาดเก่า</p>
+      </section>
+
+      <div class="camera-controls" role="group" aria-label="ควบคุมมุมกล้อง">
+        <button id="dock-view-button" type="button" aria-pressed="false">⚓ <span>มองท่าน้ำ</span></button>
+        <button id="overview-button" type="button">⌂ <span>ภาพรวม</span></button>
+      </div>
+
+      <section class="festival-controls" aria-label="แผงควบคุมงานลอยกระทง">
+        <div class="time-switcher" role="group" aria-label="เลือกช่วงเวลา">
+          <button type="button" class="time-button active" data-time="morning" aria-pressed="true"><span>☀</span><span>เช้า</span></button>
+          <button type="button" class="time-button" data-time="evening" aria-pressed="false"><span>◒</span><span>เย็น</span></button>
+          <button type="button" class="time-button" data-time="night" aria-pressed="false"><span>☾</span><span>กลางคืน</span></button>
+        </div>
+        <div class="action-row">
+          <button class="action-button offering-button" id="offering-button" type="button"><span class="action-icon">♨</span><span><strong>ใส่บาตร</strong><small>ร่วมทำบุญยามเช้า</small></span></button>
+          <button class="action-button float-button" id="float-button" type="button"><span class="action-icon">✿</span><span><strong>ลอยกระทง</strong><small>สร้างกระทงของคุณ</small></span></button>
+          <button class="action-button lantern-button" id="lantern-button" type="button"><span class="action-icon">♧</span><span><strong>ปล่อยโคม</strong><small>ทำโคมลอยของคุณ</small></span></button>
+          <div class="firework-control" id="firework-control">
+            <label for="firework-color"><span class="action-icon">✷</span><span class="firework-label"><strong>จุดพลุ</strong><small>แตะฉากเพื่อเลือกจุด</small></span></label>
+            <select id="firework-color" aria-label="เลือกสีพลุ">
+              <option value="#ffd166">ทอง</option><option value="#ff6f91">ชมพู</option><option value="#76e6d3">เขียวมรกต</option><option value="#91a7ff">คราม</option><option value="#ffffff">เงิน</option>
+            </select>
+          </div>
+        </div>
+      </section>
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </main>
+
+    <div class="welcome-screen" id="welcome-screen" role="dialog" aria-modal="true" aria-labelledby="welcome-title">
+      <div class="welcome-card">
+        <div class="welcome-art" aria-hidden="true">
+          <span class="welcome-lotus lotus-one">✿</span><span class="welcome-lotus lotus-two">❀</span>
+          <div class="welcome-river"></div>
+          <div class="welcome-krathong"><span>♨</span></div>
+          <span class="welcome-spark spark-one">✦</span><span class="welcome-spark spark-two">✧</span>
+        </div>
+        <p class="eyebrow welcome-eyebrow">WELCOME TO NATEE RATREE</p>
+        <h2 id="welcome-title">คืนวันเพ็ญ<br>กลับมาพบกันอีกครั้ง</h2>
+        <p class="welcome-copy">ร่วมเดินเล่นในเมืองเก่า ไหว้พระ ชมตลาด และลอยกระทงใต้แสงจันทร์</p>
+        <button class="enter-button" id="enter-button" type="button">เข้าสู่งานลอยกระทง <span aria-hidden="true">→</span></button>
+        <p class="welcome-footnote"><span>✿</span> ประเพณีงดงาม ร่วมรักษาสายน้ำไปด้วยกัน</p>
+      </div>
+    </div>
+
+    <dialog class="craft-dialog" id="craft-dialog" aria-labelledby="craft-title">
+      <form class="craft-form" id="craft-form">
+        <button class="dialog-close" type="button" data-close-dialog aria-label="ปิดหน้าต่าง">×</button>
+        <p class="eyebrow" id="craft-eyebrow">A WISH FOR THE RIVER</p>
+        <h2 id="craft-title">ทำกระทงของคุณ</h2>
+        <p class="dialog-intro" id="craft-intro">ใส่ชื่อ เลือกวัสดุ แล้วส่งคำอธิษฐานล่องไปกับสายน้ำ</p>
+        <label class="field-label" for="visitor-name">ชื่อของคุณ</label>
+        <input id="visitor-name" name="name" maxlength="24" placeholder="เช่น มะลิ" autocomplete="given-name" required>
+        <label class="field-label" for="visitor-wish">คำอธิษฐาน</label>
+        <textarea id="visitor-wish" name="wish" maxlength="48" rows="2" placeholder="ขอให้ครอบครัวมีความสุขและสุขภาพแข็งแรง"></textarea>
+        <label class="field-label" for="visitor-photo">รูปถ่าย <span class="optional">(ไม่บังคับ)</span></label>
+        <input class="file-input" id="visitor-photo" name="photo" type="file" accept="image/*">
+        <div class="photo-preview" id="photo-preview">✿ <span>เลือกรูปจากอุปกรณ์ของคุณ</span></div>
+        <fieldset class="krathong-options">
+          <legend class="field-label" id="craft-choice-label">เลือกกระทง <span class="optional">9 แบบ</span></legend>
+          <div id="krathong-grid" class="krathong-grid"></div>
+        </fieldset>
+        <button class="enter-button submit-button" id="craft-submit" type="submit">อธิษฐานแล้วลอยกระทง <span aria-hidden="true">→</span></button>
+        <p class="form-note" id="craft-note">กระทงดิจิทัลนี้ลอยในโลกจำลองเท่านั้น ♡</p>
+      </form>
+    </dialog>
+
+    <dialog class="market-dialog" id="market-dialog" aria-labelledby="market-title">
+      <div class="market-card">
+        <button class="dialog-close" type="button" data-close-dialog aria-label="ปิดหน้าต่าง">×</button>
+        <p class="eyebrow">OLD TOWN MARKET</p>
+        <h2 id="market-title">ร้านในตลาด</h2>
+        <p id="market-description"></p>
+        <div class="market-menu" id="market-menu"></div>
+        <button class="market-close" type="button" data-close-dialog>เดินชมตลาดต่อ</button>
+      </div>
+    </dialog>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
